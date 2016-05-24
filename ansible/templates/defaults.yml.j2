@@ -1,0 +1,17 @@
+- defaults:
+    name: global
+    project-type: freestyle
+    concurrent: false
+    publishers:
+      - email:
+          recipients: {{ qi_ops_email }}
+    # If repository issues are encountered retry the specified number of times
+    retry-count: 5
+    logrotate:
+      daysToKeep: 30
+    wrappers:
+      - timeout:
+          # Abort after these many minutes
+          timeout: 40
+          # Mark the build as failed
+          fail: true

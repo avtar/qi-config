@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  user: deploy
+
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: Generate JJB definition defaults
+      template:
+        src: defaults.yml.j2
+        dest: "{{ qi_jenkins_jobs_dir }}/defaults.yml"
+        mode: 0644
+
+    - name: Generate JJB definition for {{ app_name }}
+      template:
+        src: linux-jjb-definition.yml.j2
+        dest: "{{ qi_jenkins_jobs_dir }}/{{ app_name }}.yml"
+        mode: 0644

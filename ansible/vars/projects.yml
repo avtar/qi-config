@@ -1,0 +1,6 @@
+---
+qi_configs:
+  nexus:
+    url: https://raw.githubusercontent.com/avtar/nexus/qi-test/.qi.yml
+  #gpii-binder:
+    #url: 

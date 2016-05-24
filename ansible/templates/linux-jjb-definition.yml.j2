@@ -1,0 +1,99 @@
+- job:
+    name: {{ app_name }}-tests
+    description: "{{ app_name }} tests"
+    project-type: multijob
+    node: {{ qi_linux_build_node }}
+    scm:
+      # Before making changes to the Git repository URL and/or branch(es) please
+      # make sure that a Vagrantfile and other content required to provision test
+      # VMs is available.
+      #
+      # TODO: Please note that a build failure in one branch will stop the entire
+      # job even if other branches need to be built.
+      - git:
+          url: {{ git_repository }}
+          branches:
+  {% for branch in git_branches %}
+          - {{ branch }}
+  {% endfor %}
+
+    triggers:
+      - github
+    builders:
+      # Each parent multijob builder passes the Jenkins WORKSPACE environment
+      # variable to its child job as a parameter so that a common Git working
+      # directory can be used.
+      - multijob:
+          name: download-{{ app_name }}-vagrantfile
+          condition: SUCCESSFUL
+          projects:
+            - name: download-{{ app_name }}-vagrantfile
+              predefined-parameters: parent_workspace=$WORKSPACE
+      - multijob:
+          name: create-{{ app_name }}-vm
+          condition: SUCCESSFUL
+          projects:
+            - name: create-{{ app_name }}-vm
+              predefined-parameters: parent_workspace=$WORKSPACE
+      - multijob:
+          name: {{ app_name }}-commands
+          condition: COMPLETED
+          projects:
+            - name: {{ app_name }}-commands
+              predefined-parameters: parent_workspace=$WORKSPACE
+      - multijob:
+          name: delete-{{ app_name }}-vm
+          condition: SUCCESSFUL
+          projects:
+            - name: delete-{{ app_name }}-vm
+              predefined-parameters: parent_workspace=$WORKSPACE
+
+- job:
+    name: download-{{ app_name }}-vagrantfile
+    description: "Download Vagrantfile"
+    node: {{ qi_linux_build_node }}
+    workspace: $parent_workspace
+    builders:
+      - shell: wget -O Vagrantfile {{ qi_vagrantfile_url }}
+
+- job:
+    name: create-{{ app_name }}-vm
+    description: "Create a test VM"
+    node: {{ qi_linux_build_node }}
+    workspace: $parent_workspace
+    builders:
+      # Setting BUILD_ID for the vagrant process to make sure the Jenkins process tree killer
+      # doesn't kill the VM before the next job is started.
+      - shell: BUILD_ID={{ app_name }} DISPLAY=:0 vagrant up --provider virtualbox
+
+- job:
+    name: {{ app_name }}-commands
+    description: "{{ app_name }} commands"
+    node: {{ qi_linux_build_node }}
+    workspace: $parent_workspace
+    builders:
+  {% for command in commands %}
+    - shell: vagrant ssh -c '{{ command }}'
+  {% endfor %}
+    
+    publishers:
+      - email:
+          recipients: {{ email }}
+      # - cobertura:
+      #     report-file: report.cov
+      #     only-stable: false
+      #     fail-no-reports: false
+      #     health-auto-update: true
+      #     stability-auto-update: true
+      #     zoom-coverage-chart: true
+      # - tap:
+      #     results: report.tap
+      #     fail-if-no-results: false
+
+- job:
+    name: delete-{{ app_name }}-vm
+    description: 'Delete the test VM'
+    node: {{ qi_linux_build_node }}
+    workspace: $parent_workspace
+    builders:
+      - shell: vagrant destroy -f

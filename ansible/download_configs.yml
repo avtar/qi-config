@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  user: deploy
+
+  vars_files:
+    - vars/main.yml
+    - vars/projects.yml
+    
+  tasks:
+    - name: Create directory for storing downloaded QI configuration files
+      file:
+        path: "{{ qi_config_temp_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: Create directory for storing generated JJB definitions
+      file:
+        path: "{{ qi_jenkins_jobs_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: Download QI configs
+      get_url:
+        url: "{{ item.value.url }}"
+        dest: "{{ qi_config_temp_dir }}/{{ item.key }}.yml"
+      with_dict: "{{ qi_configs }}"
