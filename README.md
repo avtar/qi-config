@@ -18,28 +18,28 @@ http://i-0044.tor1.inclusivedesign.ca/github-webhook/
 
 The QI configuration file uses a simple YAML format. Each field is mandatory unless noted otherwise. Please also refer to an [example .qi.yml configuration](https://github.com/avtar/qi-config/blob/master/files/.qi.yml.example) provided for the GPII Nexus project.
 
-``app_name`` - A string used to identify each job on the CI server. Please hyphenate multiple words, for example, 'gpii-nexus'.
+* ``app_name`` - A string used to identify each job on the CI server. Please hyphenate multiple words, for example, 'gpii-nexus'.
 
-``git_repository`` - Specify your project's GitHub repository. 
+* ``git_repository`` - Specify your project's GitHub repository. 
 
-``git_branches`` - List of git branches that need to be built.
+* ``git_branches`` - List of git branches that need to be built.
 
-``email`` - Email address used to send notifications when CI jobs fail.
+* ``email`` - Email address used to send notifications when CI jobs fail.
 
-``env_runtime`` - Two environment runtimes are available: 
+* ``env_runtime`` - Two environment runtimes are available: 
 * 'linux' provides a headless [Centos 7 Vagrant box](https://github.com/idi-ops/packer-centos)
 * 'linux-desktop' provides a [Gnome 3 Fedora Vagrant box](https://github.com/idi-ops/packer-fedora) containing Chrome and Firefox browsers
 
-``app_tcp_port`` - The TCP port used by your application. If using Vagrant locally this port will also be used for port fowarding between your host operating system and the VM managed by Vagrant. 
+* ``app_tcp_port`` - The TCP port used by your application. If using Vagrant locally this port will also be used for port fowarding between your host operating system and the VM managed by Vagrant. 
 
-``app_start_script`` - A script can be passed as an argument to software such as Node.js Providing a script here and setting ``app_start_service`` below to ``true`` will enable a service to be started as part of the VM provisioning process.
+* ``app_start_script`` - A script can be passed as an argument to software such as Node.js Providing a script here and setting ``app_start_service`` below to ``true`` will enable a service to be started as part of the VM provisioning process.
 
-``app_start_service`` - Setting this to ``true`` along with providing a value for ``app_start_service`` will result in a daemonized process after the VM has finished starting up. Setting this to ``false`` will prevent this from happening.
+* ``app_start_service`` - Setting this to ``true`` along with providing a value for ``app_start_service`` will result in a daemonized process after the VM has finished starting up. Setting this to ``false`` will prevent this from happening.
 
-``software_stack`` - The software stack to provision in the VM before job commands are executed. Currently ``nodejs`` is the only software stack that can be set up automatically in VMs. This README will be updated when that changes.
+* ``software_stack`` - The software stack to provision in the VM before job commands are executed. Currently ``nodejs`` is the only software stack that can be set up automatically in VMs. This README will be updated when that changes.
 
-``software_stack_version`` - Using any Node.js version [supported by the IDI ansible-nodejs role](https://github.com/idi-ops/ansible-nodejs/blob/master/vars/RedHat.yml#L10-L60) are valid options here.
+* ``software_stack_version`` - Using any Node.js version [supported by the IDI ansible-nodejs role](https://github.com/idi-ops/ansible-nodejs/blob/master/vars/RedHat.yml#L10-L60) are valid options here.
 
-``setup`` - A list of commands that will be run in sequence in the VM specified by ``env_runtime`` and relative to the directory containing the ``.qi.yml`` configuration file. Any failures here will prevent the CI job from proceeding further.
+* ``setup`` - A list of commands that will be run in sequence in the VM specified by ``env_runtime`` and relative to the directory containing the ``.qi.yml`` configuration file. Any failures here will prevent the CI job from proceeding further.
 
-``commands`` - A list of commands that will also be run in sequence in the VM and relative to the location of the ``.qi.yml`` file but more verbose output will be made available compared to commands run by ``setup``. Unexpected issues here will also cause the job to fail.
+* ``commands`` - A list of commands that will also be run in sequence in the VM and relative to the location of the ``.qi.yml`` file but more verbose output will be made available compared to commands run by ``setup``. Unexpected issues here will also cause the job to fail.
