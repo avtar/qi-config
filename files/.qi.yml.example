@@ -1,0 +1,28 @@
+app_name: nexus
+
+git_repository: https://github.com/avtar/nexus.git
+
+git_branches:
+  - qi-test
+
+email: your@address.com
+
+env_runtime: linux
+
+app_tcp_port: 9081
+
+app_start_script: nexus.js
+
+app_start_service: true
+
+software_stack: nodejs
+
+software_stack_version: 4.3.1
+
+setup:
+  - sudo yum -y install curl
+  - sudo npm install -g wscat
+  - npm install
+
+commands:
+  - node /home/vagrant/sync/tests/all-tests.js
