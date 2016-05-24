@@ -96,7 +96,7 @@ SHELL
     sudo ansible-galaxy install -fr /home/vagrant/requirements.yml
   SHELL
 
-  if app_start_service == "true"
+  if app_start_service == true
     config.vm.provision "shell", inline: <<-SHELL
       sudo PYTHONUNBUFFERED=1 ansible-playbook /home/vagrant/playbook.yml --tags="install,configure,deploy"
     SHELL
@@ -111,7 +111,7 @@ SHELL
     instance_eval File.read("Vagrantfile.local"), "Vagrantfile.local"
   end
 
-  if app_env_runtime == "linux"
+  if app_env_runtime == "linux" && app_start_service == true
     # Port 19531 is needed so logs can be viewed using systemd-journal-gateway
     config.vm.network "forwarded_port", guest: 19531, host: 19531, protocol: "tcp",
       auto_correct: true
