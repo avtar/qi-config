@@ -9,4 +9,4 @@ qi_jenkins_jobs_dir: ./jenkins_jobs
 # FQDN of the host used for hosting Linux VMs
 qi_linux_build_node: h-0007.tor1.inclusivedesign.ca
 
-qi_vagrantfile_url: https://gist.githubusercontent.com/avtar/3279c7f972ba8c1ca8d19638cde3c746/raw/dcd6401b3880c756966009c0290a5bee5b079bc2/Vagrantfile
+qi_vagrantfile_url: https://raw.githubusercontent.com/avtar/qi-config/master/files/Vagrantfile.linux
