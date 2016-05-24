@@ -27,8 +27,8 @@ The QI configuration file uses a simple YAML format. Each field is mandatory unl
 * ``email`` - Email address used to send notifications when CI jobs fail.
 
 * ``env_runtime`` - Two environment runtimes are available: 
-* 'linux' provides a headless [Centos 7 Vagrant box](https://github.com/idi-ops/packer-centos)
-* 'linux-desktop' provides a [Gnome 3 Fedora Vagrant box](https://github.com/idi-ops/packer-fedora) containing Chrome and Firefox browsers
+  * 'linux' provides a headless [Centos 7 Vagrant box](https://github.com/idi-ops/packer-centos)
+  * 'linux-desktop' provides a [Gnome 3 Fedora Vagrant box](https://github.com/idi-ops/packer-fedora) containing Chrome and Firefox browsers
 
 * ``app_tcp_port`` - The TCP port used by your application. If using Vagrant locally this port will also be used for port fowarding between your host operating system and the VM managed by Vagrant. 
 
