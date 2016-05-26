@@ -4,19 +4,10 @@
     project-type: multijob
     node: {{ qi_linux_build_node }}
     scm:
-      # Before making changes to the Git repository URL and/or branch(es) please
-      # make sure that a Vagrantfile and other content required to provision test
-      # VMs is available.
-      #
-      # TODO: Please note that a build failure in one branch will stop the entire
-      # job even if other branches need to be built.
+      # Every git branch will be monitored for activity and built. Branches without .qi.yml
+      # configuration files will not have their jobs executed.
       - git:
-          url: {{ git_repository }}
-          branches:
-  {% for branch in git_branches %}
-          - {{ branch }}
-  {% endfor %}
-
+          url: {{ git_repository }}      
     triggers:
       - github
     builders:
@@ -48,13 +39,20 @@
             - name: delete-{{ app_name }}-vm
               predefined-parameters: parent_workspace=$WORKSPACE
 
+# Conditional build steps for all the following jobs make Jenkins skip workloads when Git branches
+# don't contain .qi.yml configuration files.
 - job:
     name: download-{{ app_name }}-vagrantfile
     description: "Download Vagrantfile"
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
     builders:
-      - shell: wget -O Vagrantfile {{ qi_vagrantfile_url }}
+      - conditional-step:
+          condition-kind: file-exists
+          condition-filename: .qi.yml
+          on-evaluation-failure: dont-run
+          steps:
+            - shell: wget -O Vagrantfile {{ qi_vagrantfile_url }}
 
 - job:
     name: create-{{ app_name }}-vm
@@ -64,7 +62,12 @@
     builders:
       # Setting BUILD_ID for the vagrant process to make sure the Jenkins process tree killer
       # doesn't kill the VM before the next job is started.
-      - shell: BUILD_ID={{ app_name }} DISPLAY=:0 vagrant up --provider virtualbox
+      - conditional-step:
+          condition-kind: file-exists
+          condition-filename: .qi.yml
+          on-evaluation-failure: dont-run
+          steps:
+            - shell: BUILD_ID={{ app_name }} DISPLAY=:0 vagrant up --provider virtualbox
 
 - job:
     name: {{ app_name }}-commands
@@ -72,9 +75,14 @@
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
     builders:
-  {% for command in commands %}
-    - shell: vagrant ssh -c '{{ command }}'
-  {% endfor %}
+      - conditional-step:
+          condition-kind: file-exists
+          condition-filename: .qi.yml
+          on-evaluation-failure: dont-run
+          steps:
+     {% for command in commands %}
+       - shell: vagrant ssh -c '{{ command }}'
+     {% endfor %}
     
     publishers:
       - email:
@@ -96,4 +104,9 @@
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
     builders:
-      - shell: vagrant destroy -f
+      - conditional-step:
+          condition-kind: file-exists
+          condition-filename: .qi.yml
+          on-evaluation-failure: dont-run
+          steps:
+            - shell: vagrant destroy -f

@@ -2,9 +2,6 @@ app_name: nexus
 
 git_repository: https://github.com/avtar/nexus.git
 
-git_branches:
-  - qi-test
-
 email: your@address.com
 
 env_runtime: linux

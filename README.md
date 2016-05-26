@@ -20,9 +20,7 @@ The QI configuration file uses a simple YAML format. Each field is mandatory unl
 
 * ``app_name`` - A string used to identify each job on the CI server. Please hyphenate multiple words, for example, 'gpii-nexus'.
 
-* ``git_repository`` - Specify your project's GitHub repository. 
-
-* ``git_branches`` - List of git branches that need to be built.
+* ``git_repository`` - Specify your project's GitHub repository. Every branch will be monitored for activity and built. If a ``.qi.yml`` configuration file is not part of a branch its jobs will not be executed. 
 
 * ``email`` - Email address used to send notifications when CI jobs fail.
 
