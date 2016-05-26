@@ -16,7 +16,7 @@ do
     ansible-playbook --extra-vars "@${config}" ./ansible/generate_jjb_definitions.yml
 done
 
-jenkins-jobs --conf jenkins_jobs.ini update jenkins_jobs
+jenkins-jobs --conf /etc/jenkins_job.ini update jenkins_jobs
 
 rm $LOCK
 

@@ -12,6 +12,12 @@
         dest: "{{ qi_jenkins_jobs_dir }}/defaults.yml"
         mode: 0644
 
+    - name: Generate JJB definition used by Jenkins server
+      template:
+        src: update-jjb-definitions.yml.j2
+        dest: "{{ qi_jenkins_jobs_dir }}/update-jjb-definitions.yml"
+        mode: 0644
+    
     - name: Generate JJB definition for {{ app_name }}
       template:
         src: linux-jjb-definition.yml.j2

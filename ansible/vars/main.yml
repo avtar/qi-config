@@ -1,5 +1,7 @@
 ---
 
+qi_git_repository: https://github.com/avtar/qi-config.git 
+
 qi_ops_email: agill@ocadu.ca
 
 qi_config_temp_dir: ./tmp

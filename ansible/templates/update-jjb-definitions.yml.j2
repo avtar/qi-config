@@ -1,0 +1,20 @@
+- job:
+    name: 'update-jenkins-job-definitions'
+    node: master
+    project-type: 'freestyle'
+    display-name: 'update-jenkins-job-definitions'
+    scm:
+        - git:
+            url: {{ qi_git_repository }}
+            branches:
+                - master
+    triggers:
+      - github
+    builders:      
+      - shell: chmod +x update.sh
+      - shell: ./update.sh
+    logrotate:
+      daysToKeep: 7
+    publishers:
+      - email:
+          recipients: {{ qi_ops_email }}
