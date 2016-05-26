@@ -87,16 +87,14 @@
     publishers:
       - email:
           recipients: {{ email }}
-      # - cobertura:
-      #     report-file: report.cov
-      #     only-stable: false
-      #     fail-no-reports: false
-      #     health-auto-update: true
-      #     stability-auto-update: true
-      #     zoom-coverage-chart: true
-      # - tap:
-      #     results: report.tap
-      #     fail-if-no-results: false
+      - html-publisher:
+          name: "HTML Reports"
+          dir: "reports/"
+          files: "index.html"
+          allow-missing: true
+      - tap:
+          results: report.tap
+          fail-if-no-results: false
 
 - job:
     name: delete-{{ app_name }}-vm
