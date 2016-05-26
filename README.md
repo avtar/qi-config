@@ -30,9 +30,9 @@ The QI configuration file uses a simple YAML format. Each field is mandatory unl
 
 * ``app_tcp_port`` - The TCP port used by your application. If using Vagrant locally this port will also be used for port fowarding between your host operating system and the VM managed by Vagrant. 
 
-* ``app_start_script`` - A script can be passed as an argument to software such as Node.js Providing a script here and setting ``app_start_service`` below to ``true`` will enable a service to be started as part of the VM provisioning process.
+* ``app_start_script`` - A script can be passed as an argument to software such as Node.js Providing a script here and setting ``app_start_service`` and ``app_tcp_port`` will enable a service to be started as part of the VM provisioning process.
 
-* ``app_start_service`` - Setting this to ``true`` along with providing a value for ``app_start_service`` will result in a daemonized process after the VM has finished starting up. Setting this to ``false`` will prevent this from happening.
+* ``app_start_service`` - Setting this to ``true`` along with providing values for ``app_start_script`` and ``app_tcp_port`` will result in a daemonized process after the VM has finished starting up. Setting this to ``false`` will prevent this from happening.
 
 * ``software_stack`` - The software stack to provision in the VM before job commands are executed. Currently ``nodejs`` is the only software stack that can be set up automatically in VMs. This README will be updated when that changes.
 
