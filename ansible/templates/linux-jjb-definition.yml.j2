@@ -67,7 +67,7 @@
           condition-filename: .qi.yml
           on-evaluation-failure: dont-run
           steps:
-            - shell: BUILD_ID={{ app_name }} DISPLAY=:0 vagrant up --provider virtualbox
+            - shell: BUILD_ID={{ app_name }} vagrant up --provider virtualbox
 
 - job:
     name: {{ app_name }}-commands
@@ -81,7 +81,7 @@
           on-evaluation-failure: dont-run
           steps:
      {% for command in commands %}
-       - shell: vagrant ssh -c 'cd {{ qi_linux_vm_job_commands_directory }} && {{ command }}'
+       - shell: vagrant ssh -c 'cd {{ qi_linux_vm_job_commands_directory }} && export DISPLAY=:0 && {{ command }}'
      {% endfor %}
     
     publishers:

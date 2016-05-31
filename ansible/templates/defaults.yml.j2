@@ -5,7 +5,7 @@
     publishers:
       - email:
           recipients: {{ qi_ops_email }}
-    # If repository issues are encountered retry the specified number of times
+    # If repository issues are encountered retry the specified number of times.
     retry-count: 5
     logrotate:
       daysToKeep: 30
@@ -15,3 +15,6 @@
           timeout: 40
           # Mark the build as failed
           fail: true
+      - inject:
+          # Let all Vagrant commands have access to the display server running on build nodes. 
+          properties-content: DISPLAY=:0
