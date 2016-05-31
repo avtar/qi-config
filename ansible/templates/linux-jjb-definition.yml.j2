@@ -81,7 +81,7 @@
           on-evaluation-failure: dont-run
           steps:
      {% for command in commands %}
-       - shell: vagrant ssh -c '{{ command }}'
+       - shell: vagrant ssh -c 'cd {{ app_directory }} && {{ command }}'
      {% endfor %}
     
     publishers:
@@ -92,6 +92,15 @@
           dir: "reports/"
           files: "index.html"
           allow-missing: true
+      - cobertura:
+          report-file: report.cov
+          only-stable: false
+          fail-no-reports: false
+          targets:
+            - files:
+                healthy: 0
+                unhealthy: 0
+                failing: 0
       - tap:
           results: report.tap
           fail-if-no-results: false
