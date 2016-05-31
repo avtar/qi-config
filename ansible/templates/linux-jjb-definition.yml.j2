@@ -81,7 +81,7 @@
           on-evaluation-failure: dont-run
           steps:
      {% for command in commands %}
-       - shell: vagrant ssh -c 'cd {{ app_directory }} && {{ command }}'
+       - shell: vagrant ssh -c 'cd {{ qi_linux_vm_job_commands_directory }} && {{ command }}'
      {% endfor %}
     
     publishers:
