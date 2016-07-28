@@ -1,7 +1,5 @@
 ---
 qi_configs:
-  nexus:
-    url: https://raw.githubusercontent.com/avtar/nexus/qi-test/.qi.yml
   gpii-binder:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-binder/GPII-1579/.qi.yml
   gpii-express:
