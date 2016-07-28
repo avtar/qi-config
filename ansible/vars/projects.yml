@@ -20,5 +20,5 @@ qi_configs:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-pouchdb/GPII-1803/.qi.yml
   gpii-pouchdb-lucene:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-pouchdb-lucene/GPII-1785/.qi.yml
-  gpii-test-browser:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-test-browser/GPII-1708/.qi.yml
+  gpii-webdriver:
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-webdriver/GPII-1889/.qi.yml
