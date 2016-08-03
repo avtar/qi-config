@@ -9,7 +9,7 @@ qi_config_temp_dir: ./tmp
 qi_jenkins_jobs_dir: ./jenkins_jobs
 
 # FQDN of the host used for hosting Linux VMs.
-qi_linux_build_node: h-0007.tor1.inclusivedesign.ca
+qi_linux_build_node: h-0005.tor1.inclusivedesign.ca
 
 # The directory in the VM used to mount the file share where all job related commands should be run.
 qi_linux_vm_job_commands_directory: /home/vagrant/sync
