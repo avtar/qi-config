@@ -10,7 +10,7 @@ http://i-0044.tor1.inclusivedesign.ca/github-webhook/
 
 * Provide a URL for your .qi.yml file. It will get added and confirmation will be provided.
 
-* Push any change to your repository to start a build.
+* Push any change to your repository to start a build. Every git branch will be monitored for activity and built. Branches without .qi.yml configuration files will not have their jobs executed.
 
 * Optionally (but recommended) download a [Vagrantfile](https://raw.githubusercontent.com/avtar/qi-config/master/files/Vagrantfile.linux), save it as ``Vagrantfile``, and test the provisioning process locally by typing ``vagrant up``.
 
