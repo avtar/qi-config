@@ -1,7 +1,7 @@
 ---
 qi_configs:
   gpii-binder:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-binder/GPII-1579/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-binder/GPII-1886/.qi.yml
   gpii-express:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-express/GPII-1800/.qi.yml
   gpii-express-user:
@@ -11,7 +11,7 @@ qi_configs:
   gpii-json-schema:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-json-schema/GPII-1336/.qi.yml
   gpii-location-bar-relay:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-location-bar-relay/GPII-1791/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-location-bar-relay/GPII-1878/.qi.yml
   gpii-mail-test:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-mail-test/GPII-1759/.qi.yml
   gpii-pouchdb:
