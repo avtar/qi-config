@@ -36,7 +36,7 @@ The QI configuration file uses a simple YAML format. Each field is mandatory unl
 
 * ``software_stack`` - The software stack to provision in the VM before job commands are executed. Currently ``nodejs`` is the only software stack that can be set up automatically in VMs. This README will be updated when that changes.
 
-* ``software_stack_version`` - Using any Node.js version [supported by the IDI ansible-nodejs role](https://github.com/idi-ops/ansible-nodejs/blob/master/vars/RedHat.yml#L10-L60) are valid options here.
+* ``software_stack_version`` - Specifying ``lts`` or ``current`` will install versions ``4.*`` and ``6.*`` respectively using [the IDI ansible-nodejs role](https://github.com/idi-ops/ansible-nodejs/).
 
 * ``setup`` - A list of commands that will be run in sequence in the VM specified by ``env_runtime`` and relative to the directory containing the ``.qi.yml`` configuration file. Any failures here will prevent the CI job from proceeding further.
 
