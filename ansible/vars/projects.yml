@@ -1,9 +1,9 @@
 ---
 qi_configs:
   gpii-binder:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-binder/GPII-1886/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-binder/GPII-2077/.qi.yml
   gpii-express:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-express/GPII-1800/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-express/GPII-2161/.qi.yml
   gpii-express-user:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-express-user/GPII-1754/.qi.yml
   gpii-handlebars:
@@ -11,12 +11,12 @@ qi_configs:
   gpii-json-schema:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-json-schema/GPII-1336/.qi.yml
   gpii-location-bar-relay:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-location-bar-relay/GPII-1878/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-location-bar-relay/GPII-1791/.qi.yml
   gpii-mail-test:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-mail-test/GPII-1759/.qi.yml
   gpii-pouchdb:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-pouchdb/GPII-1803/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-pouchdb/GPII-1815/.qi.yml
   gpii-pouchdb-lucene:
     url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-pouchdb-lucene/GPII-1785/.qi.yml
   gpii-webdriver:
-    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-webdriver/GPII-1889/.qi.yml
+    url: https://raw.githubusercontent.com/the-t-in-rtf/gpii-webdriver/GPII-1913/.qi.yml
