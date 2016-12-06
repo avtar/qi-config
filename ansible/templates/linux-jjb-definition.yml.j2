@@ -22,7 +22,7 @@
               predefined-parameters: parent_workspace=$WORKSPACE
       - multijob:
           name: create-{{ app_name }}-vm
-          condition: SUCCESSFUL
+          condition: COMPLETED
           projects:
             - name: create-{{ app_name }}-vm
               predefined-parameters: parent_workspace=$WORKSPACE

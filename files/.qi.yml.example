@@ -14,7 +14,8 @@ app_start_service: true
 
 software_stack: nodejs
 
-software_stack_version: 4.3.1
+# Specifying 'lts' or 'current' will install versions '4.*' and '6.*' of Node.js respectively.
+software_stack_version: lts
 
 setup:
   - sudo yum -y install curl
