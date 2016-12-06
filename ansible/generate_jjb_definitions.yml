@@ -18,8 +18,8 @@
         dest: "{{ qi_jenkins_jobs_dir }}/update-jjb-definitions.yml"
         mode: 0644
     
-    - name: Generate JJB definition for {{ app_name }}
+    - name: Generate JJB definition for {{ apps.0.app_name }}
       template:
         src: linux-jjb-definition.yml.j2
-        dest: "{{ qi_jenkins_jobs_dir }}/{{ app_name }}.yml"
+        dest: "{{ qi_jenkins_jobs_dir }}/{{ apps.0.app_name }}.yml"
         mode: 0644

@@ -1,13 +1,13 @@
 - job:
-    name: {{ app_name }}-tests
-    description: "{{ app_name }} tests"
+    name: {{ apps.0.app_name }}-tests
+    description: "{{ apps.0.app_name }} tests"
     project-type: multijob
     node: {{ qi_linux_build_node }}
     scm:
       # Every git branch will be monitored for activity and built. Branches without .qi.yml
       # configuration files will not have their jobs executed.
       - git:
-          url: {{ git_repository }}      
+          url: {{ apps.0.git_repository }}      
     triggers:
       - github
     builders:
@@ -15,34 +15,34 @@
       # variable to its child job as a parameter so that a common Git working
       # directory can be used.
       - multijob:
-          name: download-{{ app_name }}-vagrantfile
+          name: download-{{ apps.0.app_name }}-vagrantfile
           condition: SUCCESSFUL
           projects:
-            - name: download-{{ app_name }}-vagrantfile
+            - name: download-{{ apps.0.app_name }}-vagrantfile
               predefined-parameters: parent_workspace=$WORKSPACE
       - multijob:
-          name: create-{{ app_name }}-vm
+          name: create-{{ apps.0.app_name }}-vm
           condition: COMPLETED
           projects:
-            - name: create-{{ app_name }}-vm
+            - name: create-{{ apps.0.app_name }}-vm
               predefined-parameters: parent_workspace=$WORKSPACE
       - multijob:
-          name: {{ app_name }}-commands
+          name: {{ apps.0.app_name }}-commands
           condition: COMPLETED
           projects:
-            - name: {{ app_name }}-commands
+            - name: {{ apps.0.app_name }}-commands
               predefined-parameters: parent_workspace=$WORKSPACE
       - multijob:
-          name: delete-{{ app_name }}-vm
+          name: delete-{{ apps.0.app_name }}-vm
           condition: SUCCESSFUL
           projects:
-            - name: delete-{{ app_name }}-vm
+            - name: delete-{{ apps.0.app_name }}-vm
               predefined-parameters: parent_workspace=$WORKSPACE
 
 # Conditional build steps for all the following jobs make Jenkins skip workloads when Git branches
 # don't contain .qi.yml configuration files.
 - job:
-    name: download-{{ app_name }}-vagrantfile
+    name: download-{{ apps.0.app_name }}-vagrantfile
     description: "Download Vagrantfile"
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
@@ -55,7 +55,7 @@
             - shell: wget -O Vagrantfile {{ qi_vagrantfile_url }}
 
 - job:
-    name: create-{{ app_name }}-vm
+    name: create-{{ apps.0.app_name }}-vm
     description: "Create a test VM"
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
@@ -67,11 +67,11 @@
           condition-filename: .qi.yml
           on-evaluation-failure: dont-run
           steps:
-            - shell: BUILD_ID={{ app_name }} vagrant up --provider virtualbox
+            - shell: BUILD_ID={{ apps.0.app_name }} vagrant up --provider virtualbox
 
 - job:
-    name: {{ app_name }}-commands
-    description: "{{ app_name }} commands"
+    name: {{ apps.0.app_name }}-commands
+    description: "{{ apps.0.app_name }} commands"
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
     builders:
@@ -80,9 +80,7 @@
           condition-filename: .qi.yml
           on-evaluation-failure: dont-run
           steps:
-     {% for command in commands %}
-       - shell: vagrant ssh -c 'cd {{ qi_linux_vm_job_commands_directory }} && export DISPLAY=:0 && {{ command }}'
-     {% endfor %}
+            - shell: vagrant provision
     
     publishers:
       - email:
@@ -106,7 +104,7 @@
           fail-if-no-results: false
 
 - job:
-    name: delete-{{ app_name }}-vm
+    name: delete-{{ apps.0.app_name }}-vm
     description: 'Delete the test VM'
     node: {{ qi_linux_build_node }}
     workspace: $parent_workspace
