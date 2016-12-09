@@ -3,8 +3,10 @@
     project-type: freestyle
     concurrent: false
     publishers:
-      - email:
+      - email-ext:
           recipients: {{ qi_ops_email }}
+          aborted: true
+          failure: true
     # If repository issues are encountered retry the specified number of times.
     retry-count: 5
     logrotate:
