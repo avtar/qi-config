@@ -114,4 +114,4 @@
           condition-filename: .qi.yml
           on-evaluation-failure: dont-run
           steps:
-            - shell: vagrant destroy -f
+            - shell: vagrant halt && sleep 10 && vagrant destroy -f
